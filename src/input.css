@@ -1,0 +1,4 @@
+@import "tailwindcss";
+@source "../views";
+@source inline("bg-red-300");
+@source inline("bg-blue-300");

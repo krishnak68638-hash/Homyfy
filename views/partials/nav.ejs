@@ -1,0 +1,57 @@
+<header>
+  <nav class="h-flex-[50px] w-full bg-red-800 p-4 shadow-md">
+    <ul class="flex w-full space-x-4 bg-red-500">
+      <li>
+        <a
+          href="/"
+          class="rounded-md px-3 py-2 text-white transition-colors <%= currentPage === 'index' ? 'bg-red-700 font-bold shadow-sm ring-1 ring-red-200' : 'hover:bg-red-400' %>"
+          >homyfy</a
+        >
+      </li>
+
+      <li>
+        <a
+          href="/homes"
+          class="rounded-md px-3 py-2 text-white transition-colors <%= currentPage === 'Home' ? 'bg-red-700 font-bold shadow-sm ring-1 ring-red-200' : 'hover:bg-red-400' %>"
+          >Homes-List</a
+        >
+      </li>
+
+      <li>
+        <a
+          href="/favourites"
+          class="rounded-md px-3 py-2 text-white transition-colors <%= currentPage === 'favourites' ? 'bg-red-700 font-bold shadow-sm ring-1 ring-red-200' : 'hover:bg-red-400' %>"
+          >Favourite-List</a
+        >
+      </li>
+
+      <li>
+        <a
+          href="/bookings"
+          class="rounded-md px-3 py-2 text-white transition-colors <%= currentPage === 'Bookings' ? 'bg-red-700 font-bold shadow-sm ring-1 ring-red-200' : 'hover:bg-red-400' %>"
+          >Bookings</a
+        >
+      </li>
+
+      <li>
+        <a
+          href="/host/host-home-list"
+          class="rounded-md px-3 py-2 text-white transition-colors <%= currentPage === 'host-homes' ? 'bg-red-700 font-bold shadow-sm ring-1 ring-red-200' : 'hover:bg-red-400' %>"
+          >Host Homes</a
+        >
+      </li>
+
+      <li>
+        <a
+          href="/host/host-add-home"
+          class="rounded-md px-3 py-2 text-white transition-colors <%= currentPage === 'addHome' ? 'bg-red-700 font-bold shadow-sm ring-1 ring-red-200' : 'hover:bg-red-400' %>"
+          >Add Home</a
+        >
+      </li>
+    </ul>
+  </nav>
+
+  <h1 class="text-red-500 text-3xl underline text-center m-4 p-2">
+    Welcome to homyfy
+  </h1>
+</header>

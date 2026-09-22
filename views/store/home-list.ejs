@@ -1,0 +1,37 @@
+<%- include('../partials/head') %>
+  <body class="bg-slate-100">
+    <%- include('../partials/nav') %>
+
+    <main class="mx-auto mt-10 w-full max-w-6xl rounded-2xl bg-white p-6 shadow-xl sm:p-10">
+      <h2 class="mb-8 text-center text-3xl font-extrabold text-red-500 sm:text-4xl">
+        Here are our registered homes:
+      </h2>
+
+      <% if (registeredHomes && registeredHomes.length > 0) { %>
+        <div class="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+          <% registeredHomes.forEach(home => { %>
+            <article class="overflow-hidden rounded-2xl border border-red-100 bg-gradient-to from-red-50 to-white shadow-md">
+              <img src="<%= home.photoUrl %>" alt="<%= home.houseName %>" class="h-52 w-full object-cover" />
+              <div class="space-y-3 p-5">
+                <div class="flex items-center justify-between">
+                  <h3 class="text-xl font-bold text-slate-800"> <%= home.houseName %></h3>
+                  <span class="rounded-full bg-red-500 px-2 py-1 text-sm font-semibold text-white">⭐ <%= home.rating %></span>
+                </div>
+                <p class="text-sm text-slate-600"><strong>Location:</strong> <%= home.location %></p>
+                <p class="text-lg font-bold text-blue-600">$<%= home.price %>
+                </p>
+              </div>
+              <a class="bg-blue-300 p-2" href="/homes/<%= home.id %>">Details</a>
+              
+              <%- include('../partials/favourite', {home: home}) %>
+            </article>
+          <% }); %>
+        </div>
+      <% } else { %>
+        <div class="rounded-xl border border-dashed border-red-200 bg-red-50 p-8 text-center text-lg text-red-500">
+          No homes registered yet.
+        </div>
+      <% } %>
+    </main>
+  </body>
+</html>
