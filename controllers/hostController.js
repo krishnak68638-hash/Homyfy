@@ -17,7 +17,7 @@ const registeredHomes = Home.fetchAll();
 //   //console.log(registeredHomes);
 //   res.render("home", {
 //     registeredHomes: registeredHomes,
-//     pageTitle: "homyfy Home",
+//     pageTitle: "homyfyy Home",
 //   });
 // } ;
 
@@ -25,7 +25,7 @@ const registeredHomes = Home.fetchAll();
 
 exports.getAddHome = (req, res, next) => {
   res.render("host/addHome", {
-    pageTitle: "add Home to homyfy",
+    pageTitle: "add Home to homyfyy",
     currentPage: "addHome",
   });
 };

@@ -4,7 +4,7 @@
 
     <main class="mx-auto mt-10 w-full max-w-6xl rounded-2xl bg-white p-6 shadow-xl sm:p-10">
       <h2 class="mb-8 text-center text-3xl font-extrabold text-red-500 sm:text-4xl">
-        Welcome to homyfy index page:
+        Welcome to homyfyy index page:
       </h2>
 
       <% if (registeredHomes && registeredHomes.length > 0) { %>
@@ -21,8 +21,9 @@
                 <p class="text-lg font-bold text-blue-600">$<%= home.price %>
                 </p>
               </div>
-            
+            <form ation="/bookings" method="POST">
               <button class="bg-green-300 p-2">Book-Now</button>
+            </form>
             
             </article>
           <% }); %>

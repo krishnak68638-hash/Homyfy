@@ -7,7 +7,7 @@ exports.getIndex = (req, res, next) => {
   Home.fetchAll((registeredHomes) =>
     res.render("store/index", {
       registeredHomes: registeredHomes,
-      pageTitle: "homyfy Home",
+      pageTitle: "homyfyy Home",
       currentPage: "index",
     }),
   );
@@ -29,6 +29,15 @@ exports.getBookings = (req, res, next) => {
     pageTitle: "My Bookings",
     currentPage: "Bookings",
   });
+};
+
+exports.postBookings = (req, res, next) => {
+  Home.fetchAll((registeredHomes) => 
+  res.render("store/bookings", {
+    pageTitle: "My Bookings",
+    currentPage: "Bookings",
+  }),
+  );
 };
 
 exports.getFavouriteList = (req, res, next) => {
@@ -56,13 +65,13 @@ exports.postAddToFavourite = (req, res, next) => {
 };
 
 exports.postRemoveFromFavourite = (req, res, next) => {
-    const homeId = req.params.homeId;
-    Favourite.deleteById(homeId, error => {
-      if (error) {
-        console.log('Error while removing from Favourite', error);
-      }
-      res.redirect("/favourites");
-    })
+  const homeId = req.params.homeId;
+  Favourite.deleteById(homeId, (error) => {
+    if (error) {
+      console.log("Error while removing from Favourite", error);
+    }
+    res.redirect("/favourites");
+  });
 };
 
 exports.getHomeDetails = (req, res, next) => {
