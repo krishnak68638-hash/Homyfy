@@ -1,0 +1,51 @@
+<%- include('../partials/head') %>
+  <body class="bg-slate-100">
+    <%- include('../partials/nav') %>
+
+    <main class="page-shell stays-page mx-auto mt-10 w-full max-w-7xl rounded-2xl bg-white p-6 shadow-xl sm:p-10">
+      <div class="section-heading host-section-heading">
+        <div>
+          <span class="section-eyebrow">YOUR HOMYFYY SPACE</span>
+          <h1 id="host-homes-heading">Your listed homes</h1>
+          <p>Manage your stays and keep your listings looking their best.</p>
+        </div>
+        <a class="hero-primary host-add-link" href="/host/host-add-home">Add a home <span aria-hidden="true">+</span></a>
+      </div>
+
+      <% if (registeredHomes && registeredHomes.length > 0) { %>
+        <div class="home-grid grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+          <% registeredHomes.forEach(home => { %>
+            <article class="home-card host-home-card">
+              <div class="home-card-photo">
+                <img src="<%= home.photo %>" alt="<%= home.houseName %>" />
+                <span class="rating-badge"><span aria-hidden="true">★</span> <%= home.rating %></span>
+              </div>
+              <div class="home-card-content">
+                <div class="home-card-title">
+                  <h2><%= home.houseName %></h2>
+                </div>
+                <p class="home-location"><span aria-hidden="true">⌖</span> <%= home.location %></p>
+                <div class="home-card-bottom">
+                  <p class="home-price"><strong>₹<%= home.price %></strong> <span>/ night</span></p>
+                </div>
+                <div class="host-card-actions">
+                  <a class="card-action" href="/host/edit-home/<%=home._id%>?editing=true">Edit listing <span aria-hidden="true">→</span></a>
+                  <form action="/host/delete-home/<%= home._id %>" method="POST">
+                    <button type="submit">Delete</button>
+                  </form>
+                </div>
+              </div>
+            </article>
+          <% }); %>
+        </div>
+      <% } else { %>
+        <div class="empty-stays">
+          <span aria-hidden="true">⌂</span>
+          <h2>Your hosting journey starts here</h2>
+          <p>Add your first home and give guests a place to feel at home.</p>
+          <a class="hero-primary empty-host-action" href="/host/host-add-home">List your first home <span aria-hidden="true">→</span></a>
+        </div>
+      <% } %>
+    </main>
+  </body>
+</html>

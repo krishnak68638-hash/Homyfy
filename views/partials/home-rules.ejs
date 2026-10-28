@@ -1,0 +1,16 @@
+<% if (home.houseRules) { %>
+  <div class="flex flex-wrap gap-3 px-5 pb-5">
+    <a
+      class="rounded-lg bg-slate-800 px-4 py-2 font-semibold text-white hover:bg-slate-700"
+      href="/homes/<%= home._id %>/rules"
+      target="_blank"
+      rel="noopener"
+    >Read Home Rules</a>
+    <a
+      class="rounded-lg border border-slate-300 px-4 py-2 font-semibold text-slate-700 hover:bg-slate-100"
+      href="/homes/<%= home._id %>/rules/download"
+    >Download Home Rules</a>
+  </div>
+<% } else { %>
+  <p class="px-5 pb-5 text-sm text-slate-500">Home rules not provided.</p>
+<% } %>

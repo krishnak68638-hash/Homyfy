@@ -1,0 +1,47 @@
+<%- include('../partials/head') %>
+  <body class="bg-slate-100">
+    <%- include('../partials/nav') %>
+
+    <main class="page-shell stays-page mx-auto mt-10 w-full max-w-7xl rounded-2xl bg-white p-6 shadow-xl sm:p-10">
+      <div class="section-heading">
+        <div>
+          <h1 id="stays-heading">Browse homes</h1>
+          <p>See the homes currently listed on homyfyy.</p>
+        </div>
+      </div>
+
+      <% if (registeredHomes && registeredHomes.length > 0) { %>
+        <div class="home-grid grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+          <% registeredHomes.forEach(home => { %>
+            <article class="home-card">
+              <a class="home-card-photo" href="/homes/<%= home._id %>" aria-label="View <%= home.houseName %>">
+                <img src="<%= home.photo %>" alt="<%= home.houseName %>" />
+                <span class="rating-badge"><span aria-hidden="true">★</span> <%= home.rating %></span>
+              </a>
+              <div class="home-card-content">
+                <div class="home-card-title">
+                  <h2><%= home.houseName %></h2>
+                </div>
+                <p class="home-location"><span aria-hidden="true">⌖</span> <%= home.location %></p>
+                <div class="home-card-bottom">
+                  <p class="home-price"><strong>₹<%= home.price %></strong> <span>/ night</span></p>
+                </div>
+                <a class="booking-link" href="/homes/<%= home._id %>">View home <span aria-hidden="true">→</span></a>
+              </div>
+              <div class="home-card-footer">
+                <a class="card-secondary-action" href="/homes/<%= home._id %>">View details</a>
+                <%- include('../partials/favourite', {home: home}) %>
+              </div>
+            </article>
+          <% }); %>
+        </div>
+      <% } else { %>
+        <div class="empty-stays">
+          <span aria-hidden="true">⌂</span>
+          <h2>No stays just yet</h2>
+          <p>New homes are on the way. Please check back soon!</p>
+        </div>
+      <% } %>
+    </main>
+  </body>
+</html>

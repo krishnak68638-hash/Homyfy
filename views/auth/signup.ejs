@@ -1,0 +1,75 @@
+<%- include('../partials/head') %>
+  <body class="bg-slate-100">
+    <%- include('../partials/nav') %>
+
+    <main class="page-shell form-shell mx-auto mt-10 max-w-xl rounded-2xl bg-white p-8 shadow-xl">
+      <div class="form-intro">
+        <span class="section-eyebrow">MAKE YOURSELF AT HOME</span>
+        <h1 class="page-heading mb-2 mt-2 text-center text-3xl font-bold">Join homyfyy</h1>
+        <p>Create your account and find a stay that feels like you.</p>
+      </div>
+
+      <form action="/signup" method="POST" class="space-y-4 text-left">
+        <%- include('../partials/errors') %>
+        <div>
+          <label class="mb-1 block font-medium text-slate-700">First Name:</label>
+          <input class="w-full rounded-lg border border-red-200 bg-slate-50 p-3 outline-none ring-0 focus:border-red-400" type="text" name="firstName"
+          value="<%= oldInput.firstName ? oldInput.firstName : '' %>"
+          placeholder="First name" required />
+        </div>
+        <div>
+          <label class="mb-1 block font-medium text-slate-700">Last Name:</label>
+          <input class="w-full rounded-lg border border-red-200 bg-slate-50 p-3 outline-none ring-0 focus:border-red-400" type="text" name="lastName"
+          value="<%= oldInput.lastName ? oldInput.lastName : '' %>"
+          placeholder="Last name"  />
+        </div>
+        <div>
+          <label class="mb-1 block font-medium text-slate-700">Enter Your Email:</label>
+          <input class="w-full rounded-lg border border-red-200 bg-slate-50 p-3 outline-none ring-0 focus:border-red-400" type="email" name="email"
+          value="<%= oldInput.email ? oldInput.email : '' %>"
+          placeholder="test@example.com" required />
+        </div>
+        <div>
+          <label class="mb-1 block font-medium text-slate-700">Set Password:</label>
+          <input class="w-full rounded-lg border border-red-200 bg-slate-50 p-3 outline-none focus:border-red-400" type="password" name="password"
+          placeholder="Enter Your password" required />
+        </div>
+        <div>
+          <label class="mb-1 block font-medium text-slate-700">Confirm Password:</label>
+          <input class="w-full rounded-lg border border-red-200 bg-slate-50 p-3 outline-none focus:border-red-400" type="password" name="confirmPassword"
+          placeholder="Confirm Your password" required />
+        </div>
+
+        <div class="mb-3">
+          <p class="mb-1 block font-medium text-slate-700">Select your user type:</p>
+          <label class="mb-1 block font-medium text-slate-700 flex items-center">
+            <input type="radio" name="userType" value="guest" id="guest" class="mr-2" 
+            <%= oldInput.userType === "guest" || !oldInput.userType ? "checked" : "" %> />
+            <span class="text-slate-700">Guest</span>
+          </label>
+          </div>
+
+          <div class="mb-3">
+          <label class="mb-1 block font-medium text-slate-700 flex items-center">
+            <input type="radio" name="userType" value="host" id="host" class="mr-2" 
+            <%= oldInput.userType === "host" ? "checked" : "" %> />
+            <span class="text-slate-700">Host</span>
+          </label>
+        </div>
+          <br>
+          
+          <div class="mb-3">
+          <input type="checkbox" name="terms" id="terms" class="mr-2" required />
+          <label for="terms" class="inline-flex  items-center font-medium text-slate-700">
+            I agree to the terms and conditions.
+          </label>
+          </div>
+
+        <input class="w-full rounded-full bg-red-500 px-4 py-3 font-semibold text-white transition hover:bg-red-600" type="submit" value="Register"/>
+      </form>
+      <p class="mt-4 text-center text-sm text-slate-500">
+        Already have an account? <a href="/login" class="text-red-500 hover:underline">Login here</a>
+      </p>  
+    </main>
+  </body>
+</html>

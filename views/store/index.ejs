@@ -1,0 +1,68 @@
+<%- include('../partials/head') %>
+  <body class="bg-slate-100">
+    <%- include('../partials/nav') %>
+
+    <main class="home-page mx-auto w-full max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
+      <section class="home-hero">
+        <div class="home-hero-copy">
+          <h1>Find a stay<br />that feels <span>right.</span></h1>
+          <p>Browse homes listed on homyfyy and find a place that suits your trip.</p>
+          <div class="hero-actions">
+            <a class="hero-primary" href="#featured-stays">Browse homes <span aria-hidden="true">→</span></a>
+            <% if (!isLoggedIn) { %>
+              <a class="hero-secondary" href="/signup">Create an account</a>
+            <% } %>
+          </div>
+        </div>
+        <div class="home-hero-info">
+          <span class="hero-info-label">HOMYFYY</span>
+          <h2>A place for your next stay.</h2>
+          <p>Compare home details and prices, then choose a place that works for your trip.</p>
+          <div class="hero-home-count">
+            <strong><%= registeredHomes ? registeredHomes.length : 0 %></strong>
+            <span><%= registeredHomes && registeredHomes.length === 1 ? 'home listed' : 'homes listed' %></span>
+          </div>
+        </div>
+      </section>
+
+      <section class="stays-section" id="featured-stays" aria-labelledby="stays-heading">
+        <div class="section-heading">
+          <div>
+            <h2 id="stays-heading">Available homes</h2>
+            <p>Homes currently listed on homyfyy.</p>
+          </div>
+          <a class="section-link" href="/homes">Explore all stays <span aria-hidden="true">→</span></a>
+        </div>
+
+      <% if (registeredHomes && registeredHomes.length > 0) { %>
+        <div class="home-grid grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+          <% registeredHomes.forEach(home => { %>
+            <article class="home-card">
+              <a class="home-card-photo" href="/homes/<%= home._id %>" aria-label="View <%= home.houseName %>">
+                <img src="<%= home.photo %>" alt="<%= home.houseName %>" />
+                <span class="rating-badge"><span aria-hidden="true">★</span> <%= home.rating %></span>
+              </a>
+              <div class="home-card-content">
+                <div class="home-card-title">
+                  <h3><%= home.houseName %></h3>
+                </div>
+                <p class="home-location"><span aria-hidden="true">⌖</span> <%= home.location %></p>
+                <div class="home-card-bottom">
+                  <p class="home-price"><strong>₹<%= home.price %></strong> <span>/ night</span></p>
+                </div>
+                <a class="booking-link" href="/homes/<%= home._id %>">View home <span aria-hidden="true">→</span></a>
+              </div>
+            </article>
+          <% }); %>
+        </div>
+      <% } else { %>
+        <div class="empty-stays">
+          <span aria-hidden="true">⌂</span>
+          <h3>Your next stay is on its way</h3>
+          <p>We’re getting our first homes ready. Check back soon!</p>
+        </div>
+      <% } %>
+      </section>
+    </main>
+  </body>
+</html>

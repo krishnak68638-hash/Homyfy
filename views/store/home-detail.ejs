@@ -1,0 +1,54 @@
+<%- include('../partials/head') %>
+  <body>
+    <%- include('../partials/nav') %>
+
+    <main class="detail-page">
+      <a class="detail-back-link" href="/homes"><span aria-hidden="true">←</span> Back to all stays</a>
+      <article class="detail-card">
+        <div class="detail-photo">
+          <img src="<%= home.photo %>" alt="<%= home.houseName %>" />
+          <span class="detail-photo-label"><span aria-hidden="true">✦</span> A homyfyy stay</span>
+        </div>
+        <div class="detail-content">
+          <span class="section-eyebrow">A PLACE TO FEEL AT HOME</span>
+          <h1><%= home.houseName %></h1>
+          <p class="detail-location"><span aria-hidden="true">⌖</span> <%= home.location %></p>
+
+          <div class="detail-highlights">
+            <div class="detail-highlight">
+              <span class="highlight-icon" aria-hidden="true">★</span>
+              <span><strong><%= home.rating %> / 5</strong><small>Guest rating</small></span>
+            </div>
+            <div class="detail-highlight">
+              <span class="highlight-icon" aria-hidden="true">⌂</span>
+              <span><strong>Just like home</strong><small>A place to unwind</small></span>
+            </div>
+          </div>
+
+          <div class="detail-price">
+            <span>Stay at this home</span>
+            <p><strong>₹<%= home.price %></strong> <span>/ night</span></p>
+          </div>
+
+          <% if (home.description) { %>
+            <div class="detail-description">
+              <h2>About this place</h2>
+              <p><%= home.description %></p>
+            </div>
+          <% } %>
+
+          <div class="detail-actions">
+            <%- include('../partials/favourite', {home: home}) %>
+          </div>
+
+          <% if (home.houseRules) { %>
+            <div class="detail-rules">
+              <h2>Before you settle in</h2>
+              <%- include('../partials/home-rules', {home: home}) %>
+            </div>
+          <% } %>
+        </div>
+      </article>
+    </main>
+  </body>
+</html>

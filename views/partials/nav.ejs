@@ -1,0 +1,84 @@
+<header>
+  <nav class="site-nav hide-scrollbar w-full overflow-x-auto border-b border-rose-700 bg-gradient-to-r from-rose-600 via-rose-600 to-red-600 px-4 py-4 shadow-md sm:px-6 lg:px-8">
+    <ul class="site-nav-list mx-auto flex w-max min-w-full max-w-7xl flex-nowrap items-center gap-2 whitespace-nowrap text-sm">
+      <li>
+        <a
+          href="/"
+          class="site-brand mr-2 inline-block rounded-xl px-3 py-2 text-xl font-extrabold tracking-tight text-white transition duration-200 hover:-translate-y-0.5 hover:bg-white/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-rose-600 sm:mr-4 <%= currentPage === 'index' ? 'bg-white/20 shadow-sm' : '' %>"
+          ><span aria-hidden="true">⌂</span> homyfyy</a
+        >
+      </li>
+
+      <% if (isLoggedIn) {%>
+        <% if (user && user.userType === 'guest') { %>
+          <li>
+            <a
+              href="/homes"
+              class="nav-link rounded-full px-4 py-2 font-medium transition duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-rose-600 <%= currentPage === 'Home' ? 'nav-active' : '' %>"
+              >Stays</a
+            >
+          </li>
+
+          <li>
+            <a
+              href="/favourites"
+              class="nav-link rounded-full px-4 py-2 font-medium transition duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-rose-600 <%= currentPage === 'favourites' ? 'nav-active' : '' %>"
+              >Favourites</a
+            >
+          </li>
+
+          <li>
+            <a
+              href="/bookings"
+              class="nav-link rounded-full px-4 py-2 font-medium transition duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-rose-600 <%= currentPage === 'Bookings' ? 'nav-active' : '' %>"
+              >Bookings</a
+            >
+          </li>
+        <% } else { %>
+          <li>
+            <a
+              href="/host/host-home-list"
+              class="nav-link rounded-full px-4 py-2 font-medium transition duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-rose-600 <%= currentPage === 'host-homes' ? 'nav-active' : '' %>"
+              >My listings</a
+            >
+          </li>
+
+          <li>
+            <a
+              href="/host/host-add-home"
+              class="nav-link rounded-full px-4 py-2 font-medium transition duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-rose-600 <%= currentPage === 'addHome' ? 'nav-active' : '' %>"
+              >List a home</a
+            >
+          </li>
+        <% } %>
+      <% } %>
+
+      <% if (!isLoggedIn) { %>
+      <li class="ml-auto">
+        <a
+          href="/signup"
+          class="nav-link rounded-full px-4 py-2 font-medium transition duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-rose-600 <%= currentPage === 'Signup' ? 'nav-active' : '' %>"
+          >Create account</a
+        >
+      </li>
+      <li>
+        <a
+          href="/login"
+          class="nav-link nav-login rounded-full px-5 py-2 font-semibold transition duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-rose-600 <%= currentPage === 'Login' ? 'nav-active' : '' %>"
+          >Sign in</a
+        >
+      </li>
+      <% } else { %>
+      <li class="ml-auto">
+        <form action="/logout" method="POST">
+          <button
+            type="submit"
+            class="nav-link rounded-full px-4 py-2 font-medium text-white/90 transition duration-200 hover:-translate-y-0.5 hover:bg-white/15 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-rose-600"
+            >Sign out</button
+          >
+        </form>
+      </li>
+      <% } %>
+    </ul>
+  </nav>
+</header>

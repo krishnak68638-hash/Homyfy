@@ -1,0 +1,38 @@
+{
+  "name": "chapter-16-",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tailwind": "tailwindcss -i ./src/input.css -o ./public/output.css --watch --silent",
+    "start": "concurrently \"nodemon\" \"npm run tailwind\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.3.3",
+    "autoprefixer": "^10.5.5",
+    "concurrently": "^9.2.1",
+    "nodemon": "^3.1.14",
+    "postcss": "^8.5.28",
+    "tailwindcss": "^4.3.3"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "body-parser": "^2.3.0",
+    "connect-mongodb-session": "^5.0.0",
+    "dotenv": "^18.0.9",
+    "ejs": "^6.0.1",
+    "express": "^5.3.0",
+    "express-session": "^1.19.0",
+    "express-validator": "^7.3.2",
+    "mongodb": "^7.7.0",
+    "mongoose": "^9.11.1",
+    "multer": "^2.5.0",
+    "mysql2": "^3.24.4",
+    "validator": "^13.15.35"
+  }
+}

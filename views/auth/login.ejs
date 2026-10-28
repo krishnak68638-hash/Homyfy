@@ -1,0 +1,33 @@
+<%- include('../partials/head') %>
+  <body class="bg-slate-100">
+    <%- include('../partials/nav') %>
+
+    <main class="page-shell form-shell mx-auto mt-10 max-w-xl rounded-2xl bg-white p-8 shadow-xl">
+      <div class="form-intro">
+        <span class="section-eyebrow">WELCOME BACK</span>
+        <h1 class="page-heading mb-2 mt-2 text-center text-3xl font-bold">Sign in to homyfyy</h1>
+        <p>Your next favorite stay is just around the corner.</p>
+      </div>
+
+      <form action="/login" method="POST" class="space-y-4 text-left">
+        <%- include('../partials/errors') %>
+        <div>
+          <label class="mb-1 block font-medium text-slate-700">User Name:</label>
+          <input class="w-full rounded-lg border border-red-200 bg-slate-50 p-3 outline-none ring-0 focus:border-red-400" type="email" name="email"
+          value="<%= oldInput.email ? oldInput.email : '' %>"
+          placeholder="test@example.com" required />
+        </div>
+
+        <div>
+          <label class="mb-1 block font-medium text-slate-700">Password:</label>
+          <input class="w-full rounded-lg border border-red-200 bg-slate-50 p-3 outline-none focus:border-red-400" type="password" name="password"  placeholder="Enter your password" required />
+        </div>
+
+        <input class="w-full rounded-full bg-red-500 px-4 py-3 font-semibold text-white transition hover:bg-red-600" type="submit" value="Sign In"/>
+      </form>
+      <p class="mt-4 text-center text-sm text-slate-500">
+        Don't have an account yet? <a href="/signup" class="text-red-500 hover:underline">Sign up</a>
+      </p>  
+    </main>
+  </body>
+</html>
