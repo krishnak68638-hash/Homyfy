@@ -1,32 +1,63 @@
 <%- include('../partials/head') %>
-  <body class="bg-slate-100">
+  <body class="bg-slate-100 min-h-screen">
     <%- include('../partials/nav') %>
 
-    <main class="page-shell form-shell mx-auto mt-10 max-w-xl rounded-2xl bg-white p-8 shadow-xl">
-      <div class="form-intro">
-        <span class="section-eyebrow">WELCOME BACK</span>
-        <h1 class="page-heading mb-2 mt-2 text-center text-3xl font-bold">Sign in to homyfyy</h1>
-        <p>Your next favorite stay is just around the corner.</p>
+    <main class="page-shell form-shell mx-auto mt-10 mb-12 max-w-xl rounded-2xl bg-white p-6 shadow-xl sm:p-10">
+      <div class="form-intro text-center mb-6">
+        <span class="section-eyebrow text-xs font-bold tracking-wider text-rose-600 uppercase">WELCOME BACK</span>
+        <h1 class="page-heading mb-2 mt-2 text-3xl font-extrabold text-slate-900">Sign in to homyfyy</h1>
+        <p class="text-sm text-slate-500">Your next favorite stay is just around the corner.</p>
       </div>
+
+      <% if (typeof registeredMessage !== 'undefined' && registeredMessage) { %>
+        <div class="mb-5 rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-xs font-semibold text-emerald-800 shadow-sm flex items-center gap-2">
+          <span aria-hidden="true" class="text-base">✓</span>
+          <span><%= registeredMessage %></span>
+        </div>
+      <% } %>
 
       <form action="/login" method="POST" class="space-y-4 text-left">
         <%- include('../partials/errors') %>
+
         <div>
-          <label class="mb-1 block font-medium text-slate-700">User Name:</label>
-          <input class="w-full rounded-lg border border-red-200 bg-slate-50 p-3 outline-none ring-0 focus:border-red-400" type="email" name="email"
-          value="<%= oldInput.email ? oldInput.email : '' %>"
-          placeholder="test@example.com" required />
+          <label class="mb-1 block text-xs font-bold uppercase tracking-wider text-slate-600">
+            Email or Mobile Phone Number:
+          </label>
+          <input
+            class="w-full rounded-xl border border-slate-300 bg-slate-50/50 p-3 text-sm text-slate-800 outline-none transition focus:border-rose-500 focus:bg-white focus:ring-2 focus:ring-rose-200"
+            type="text"
+            name="identifier"
+            value="<%= (oldInput && oldInput.identifier) ? oldInput.identifier : (oldInput && oldInput.email ? oldInput.email : '') %>"
+            placeholder="e.g. 98765 43210 or user@example.com"
+            required
+            autofocus
+          />
         </div>
 
         <div>
-          <label class="mb-1 block font-medium text-slate-700">Password:</label>
-          <input class="w-full rounded-lg border border-red-200 bg-slate-50 p-3 outline-none focus:border-red-400" type="password" name="password"  placeholder="Enter your password" required />
+          <label class="mb-1 block text-xs font-bold uppercase tracking-wider text-slate-600">Password:</label>
+          <input
+            class="w-full rounded-xl border border-slate-300 bg-slate-50/50 p-3 text-sm text-slate-800 outline-none transition focus:border-rose-500 focus:bg-white focus:ring-2 focus:ring-rose-200"
+            type="password"
+            name="password"
+            placeholder="Enter your password"
+            required
+          />
         </div>
 
-        <input class="w-full rounded-full bg-red-500 px-4 py-3 font-semibold text-white transition hover:bg-red-600" type="submit" value="Sign In"/>
+        <div class="pt-2">
+          <button
+            type="submit"
+            class="w-full rounded-full bg-gradient-to-r from-rose-600 to-red-600 px-6 py-3.5 text-center text-sm font-bold text-white shadow-md shadow-rose-500/25 transition duration-200 hover:-translate-y-0.5 hover:from-rose-700 hover:to-red-700 hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-rose-200"
+          >
+            Sign In
+          </button>
+        </div>
       </form>
-      <p class="mt-4 text-center text-sm text-slate-500">
-        Don't have an account yet? <a href="/signup" class="text-red-500 hover:underline">Sign up</a>
+
+      <p class="mt-6 text-center text-xs text-slate-500">
+        Don't have an account yet?
+        <a href="/signup" class="font-bold text-rose-600 hover:underline">Sign up</a>
       </p>  
     </main>
   </body>

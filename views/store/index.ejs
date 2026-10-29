@@ -50,7 +50,10 @@
                 <div class="home-card-bottom">
                   <p class="home-price"><strong>₹<%= home.price %></strong> <span>/ night</span></p>
                 </div>
-                <a class="booking-link" href="/homes/<%= home._id %>">View home <span aria-hidden="true">→</span></a>
+                <div class="mt-2 flex items-center gap-2">
+                  <a class="booking-link flex-1 text-center" href="/homes/<%= home._id %>">View stay <span aria-hidden="true">→</span></a>
+                  <a class="rounded-xl border border-rose-200 bg-rose-50 px-3 py-2 text-xs font-bold text-rose-600 transition hover:bg-rose-100" href="/homes/<%= home._id %>/reserve">Book</a>
+                </div>
               </div>
             </article>
           <% }); %>

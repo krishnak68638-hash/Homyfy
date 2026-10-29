@@ -23,6 +23,11 @@ const homeSchema = new mongoose.Schema({
   },
   houseRules: String,
   description: String,
+  host: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
 });
 
 // homeSchema.pre('findOneDelete', async function(next) {

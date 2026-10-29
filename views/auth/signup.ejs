@@ -1,75 +1,239 @@
 <%- include('../partials/head') %>
-  <body class="bg-slate-100">
+  <body class="bg-slate-100 min-h-screen">
     <%- include('../partials/nav') %>
 
-    <main class="page-shell form-shell mx-auto mt-10 max-w-xl rounded-2xl bg-white p-8 shadow-xl">
-      <div class="form-intro">
-        <span class="section-eyebrow">MAKE YOURSELF AT HOME</span>
-        <h1 class="page-heading mb-2 mt-2 text-center text-3xl font-bold">Join homyfyy</h1>
-        <p>Create your account and find a stay that feels like you.</p>
+    <main class="page-shell form-shell mx-auto mt-8 mb-12 max-w-xl rounded-2xl bg-white p-6 shadow-xl sm:p-10">
+      <div class="form-intro text-center mb-6">
+        <span class="section-eyebrow text-xs font-bold tracking-wider text-rose-600 uppercase">MAKE YOURSELF AT HOME</span>
+        <h1 class="page-heading mb-2 mt-2 text-3xl font-extrabold text-slate-900">Join homyfyy</h1>
+        <p class="text-sm text-slate-500">Create your account and find a stay that feels like you.</p>
       </div>
 
-      <form action="/signup" method="POST" class="space-y-4 text-left">
+      <!-- Auth Method Selection Tabs -->
+      <div class="mb-6 flex rounded-xl bg-slate-100 p-1 border border-slate-200" role="tablist">
+        <button
+          type="button"
+          id="tabPhone"
+          class="flex-1 rounded-lg py-2.5 text-xs sm:text-sm font-bold transition duration-150 flex items-center justify-center gap-2 <%= (!oldInput || oldInput.authMethod !== 'email') ? 'bg-white text-rose-600 shadow-sm' : 'text-slate-600 hover:text-slate-900' %>"
+          onclick="switchAuthMethod('phone')"
+        >
+          <span aria-hidden="true">📱</span> Mobile Phone
+        </button>
+        <button
+          type="button"
+          id="tabEmail"
+          class="flex-1 rounded-lg py-2.5 text-xs sm:text-sm font-bold transition duration-150 flex items-center justify-center gap-2 <%= (oldInput && oldInput.authMethod === 'email') ? 'bg-white text-rose-600 shadow-sm' : 'text-slate-600 hover:text-slate-900' %>"
+          onclick="switchAuthMethod('email')"
+        >
+          <span aria-hidden="true">✉️</span> Email Address
+        </button>
+      </div>
+
+      <form action="/signup" method="POST" class="space-y-4 text-left" id="signupForm">
+        <input type="hidden" name="authMethod" id="authMethodInput" value="<%= (oldInput && oldInput.authMethod === 'email') ? 'email' : 'phone' %>" />
+        
         <%- include('../partials/errors') %>
-        <div>
-          <label class="mb-1 block font-medium text-slate-700">First Name:</label>
-          <input class="w-full rounded-lg border border-red-200 bg-slate-50 p-3 outline-none ring-0 focus:border-red-400" type="text" name="firstName"
-          value="<%= oldInput.firstName ? oldInput.firstName : '' %>"
-          placeholder="First name" required />
-        </div>
-        <div>
-          <label class="mb-1 block font-medium text-slate-700">Last Name:</label>
-          <input class="w-full rounded-lg border border-red-200 bg-slate-50 p-3 outline-none ring-0 focus:border-red-400" type="text" name="lastName"
-          value="<%= oldInput.lastName ? oldInput.lastName : '' %>"
-          placeholder="Last name"  />
-        </div>
-        <div>
-          <label class="mb-1 block font-medium text-slate-700">Enter Your Email:</label>
-          <input class="w-full rounded-lg border border-red-200 bg-slate-50 p-3 outline-none ring-0 focus:border-red-400" type="email" name="email"
-          value="<%= oldInput.email ? oldInput.email : '' %>"
-          placeholder="test@example.com" required />
-        </div>
-        <div>
-          <label class="mb-1 block font-medium text-slate-700">Set Password:</label>
-          <input class="w-full rounded-lg border border-red-200 bg-slate-50 p-3 outline-none focus:border-red-400" type="password" name="password"
-          placeholder="Enter Your password" required />
-        </div>
-        <div>
-          <label class="mb-1 block font-medium text-slate-700">Confirm Password:</label>
-          <input class="w-full rounded-lg border border-red-200 bg-slate-50 p-3 outline-none focus:border-red-400" type="password" name="confirmPassword"
-          placeholder="Confirm Your password" required />
-        </div>
 
-        <div class="mb-3">
-          <p class="mb-1 block font-medium text-slate-700">Select your user type:</p>
-          <label class="mb-1 block font-medium text-slate-700 flex items-center">
-            <input type="radio" name="userType" value="guest" id="guest" class="mr-2" 
-            <%= oldInput.userType === "guest" || !oldInput.userType ? "checked" : "" %> />
-            <span class="text-slate-700">Guest</span>
-          </label>
+        <!-- Name Fields -->
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div>
+            <label class="mb-1 block text-xs font-bold uppercase tracking-wider text-slate-600">First Name:</label>
+            <input
+              class="w-full rounded-xl border border-slate-300 bg-slate-50/50 p-3 text-sm text-slate-800 outline-none transition focus:border-rose-500 focus:bg-white focus:ring-2 focus:ring-rose-200"
+              type="text"
+              name="firstName"
+              value="<%= oldInput && oldInput.firstName ? oldInput.firstName : '' %>"
+              placeholder="e.g. Ketan"
+              required
+            />
           </div>
+          <div>
+            <label class="mb-1 block text-xs font-bold uppercase tracking-wider text-slate-600">Last Name:</label>
+            <input
+              class="w-full rounded-xl border border-slate-300 bg-slate-50/50 p-3 text-sm text-slate-800 outline-none transition focus:border-rose-500 focus:bg-white focus:ring-2 focus:ring-rose-200"
+              type="text"
+              name="lastName"
+              value="<%= oldInput && oldInput.lastName ? oldInput.lastName : '' %>"
+              placeholder="e.g. Vats"
+            />
+          </div>
+        </div>
 
-          <div class="mb-3">
-          <label class="mb-1 block font-medium text-slate-700 flex items-center">
-            <input type="radio" name="userType" value="host" id="host" class="mr-2" 
-            <%= oldInput.userType === "host" ? "checked" : "" %> />
-            <span class="text-slate-700">Host</span>
+        <!-- Mobile Phone Field Container -->
+        <div id="phoneFieldGroup">
+          <label class="mb-1 block text-xs font-bold uppercase tracking-wider text-slate-600">
+            Mobile Phone Number: <span class="text-rose-600" id="phoneRequiredBadge">*</span>
+          </label>
+          <div class="relative flex items-center">
+            <span class="absolute left-3 flex items-center gap-1 rounded-md bg-slate-200/80 px-2 py-1 text-xs font-bold text-slate-700">
+              🇮🇳 +91
+            </span>
+            <input
+              class="w-full rounded-xl border border-slate-300 bg-slate-50/50 p-3 pl-20 text-sm text-slate-800 outline-none transition focus:border-rose-500 focus:bg-white focus:ring-2 focus:ring-rose-200 font-mono"
+              type="tel"
+              id="phoneInput"
+              name="phone"
+              value="<%= oldInput && oldInput.phone ? oldInput.phone : '' %>"
+              placeholder="98765 43210"
+              maxlength="15"
+            />
+          </div>
+          <p class="mt-1 text-xs text-slate-500" id="phoneHint">We'll use this for your reservation alerts and account verification.</p>
+        </div>
+
+        <!-- Email Field Container -->
+        <div id="emailFieldGroup">
+          <label class="mb-1 block text-xs font-bold uppercase tracking-wider text-slate-600">
+            Email Address: <span class="text-rose-600" id="emailRequiredBadge">*</span>
+          </label>
+          <input
+            class="w-full rounded-xl border border-slate-300 bg-slate-50/50 p-3 text-sm text-slate-800 outline-none transition focus:border-rose-500 focus:bg-white focus:ring-2 focus:ring-rose-200"
+            type="email"
+            id="emailInput"
+            name="email"
+            value="<%= oldInput && oldInput.email ? oldInput.email : '' %>"
+            placeholder="you@example.com"
+          />
+          <p class="mt-1 text-xs text-slate-500" id="emailHint">Used for booking receipts and trip itineraries.</p>
+        </div>
+
+        <!-- Password Fields -->
+        <div>
+          <label class="mb-1 block text-xs font-bold uppercase tracking-wider text-slate-600">Set Password:</label>
+          <input
+            class="w-full rounded-xl border border-slate-300 bg-slate-50/50 p-3 text-sm text-slate-800 outline-none transition focus:border-rose-500 focus:bg-white focus:ring-2 focus:ring-rose-200"
+            type="password"
+            name="password"
+            placeholder="At least 8 characters (1 uppercase, 1 lowercase, 1 special)"
+            required
+          />
+        </div>
+
+        <div>
+          <label class="mb-1 block text-xs font-bold uppercase tracking-wider text-slate-600">Confirm Password:</label>
+          <input
+            class="w-full rounded-xl border border-slate-300 bg-slate-50/50 p-3 text-sm text-slate-800 outline-none transition focus:border-rose-500 focus:bg-white focus:ring-2 focus:ring-rose-200"
+            type="password"
+            name="confirmPassword"
+            placeholder="Re-enter your password"
+            required
+          />
+        </div>
+
+        <!-- User Type Selection Cards -->
+        <div class="pt-2">
+          <label class="mb-2 block text-xs font-bold uppercase tracking-wider text-slate-600">I want to:</label>
+          <div class="grid grid-cols-2 gap-3">
+            <label class="flex cursor-pointer items-center gap-3 rounded-xl border border-slate-200 p-3.5 transition hover:border-rose-300 has-[:checked]:border-rose-500 has-[:checked]:bg-rose-50/40">
+              <input
+                type="radio"
+                name="userType"
+                value="guest"
+                id="guest"
+                class="accent-rose-600"
+                <%= (!oldInput || oldInput.userType === "guest" || !oldInput.userType) ? "checked" : "" %>
+              />
+              <div>
+                <span class="block text-sm font-bold text-slate-800">Book stays</span>
+                <span class="block text-xs text-slate-500">I am a traveler</span>
+              </div>
+            </label>
+
+            <label class="flex cursor-pointer items-center gap-3 rounded-xl border border-slate-200 p-3.5 transition hover:border-rose-300 has-[:checked]:border-rose-500 has-[:checked]:bg-rose-50/40">
+              <input
+                type="radio"
+                name="userType"
+                value="host"
+                id="host"
+                class="accent-rose-600"
+                <%= (oldInput && oldInput.userType === "host") ? "checked" : "" %>
+              />
+              <div>
+                <span class="block text-sm font-bold text-slate-800">List homes</span>
+                <span class="block text-xs text-slate-500">I am a host</span>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Terms Checkbox -->
+        <div class="pt-2">
+          <label class="flex items-start gap-2.5 cursor-pointer text-xs text-slate-600">
+            <input type="checkbox" name="terms" id="terms" class="mt-0.5 rounded accent-rose-600" required />
+            <span>I agree to homyfyy's <a href="#" class="text-rose-600 font-semibold underline">Terms of Service</a> and <a href="#" class="text-rose-600 font-semibold underline">Privacy Policy</a>.</span>
           </label>
         </div>
-          <br>
-          
-          <div class="mb-3">
-          <input type="checkbox" name="terms" id="terms" class="mr-2" required />
-          <label for="terms" class="inline-flex  items-center font-medium text-slate-700">
-            I agree to the terms and conditions.
-          </label>
-          </div>
 
-        <input class="w-full rounded-full bg-red-500 px-4 py-3 font-semibold text-white transition hover:bg-red-600" type="submit" value="Register"/>
+        <!-- Submit Button -->
+        <div class="pt-2">
+          <button
+            type="submit"
+            id="registerBtn"
+            class="w-full rounded-full bg-gradient-to-r from-rose-600 to-red-600 px-6 py-3.5 text-center text-sm font-bold text-white shadow-md shadow-rose-500/25 transition duration-200 hover:-translate-y-0.5 hover:from-rose-700 hover:to-red-700 hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-rose-200"
+          >
+            Create Account
+          </button>
+        </div>
       </form>
-      <p class="mt-4 text-center text-sm text-slate-500">
-        Already have an account? <a href="/login" class="text-red-500 hover:underline">Login here</a>
-      </p>  
+
+      <p class="mt-6 text-center text-xs text-slate-500">
+        Already have an account?
+        <a href="/login" class="font-bold text-rose-600 hover:underline">Sign in</a>
+      </p>
     </main>
+
+    <script>
+      function switchAuthMethod(method) {
+        const authMethodInput = document.getElementById("authMethodInput");
+        const tabPhone = document.getElementById("tabPhone");
+        const tabEmail = document.getElementById("tabEmail");
+        const phoneInput = document.getElementById("phoneInput");
+        const emailInput = document.getElementById("emailInput");
+        const phoneRequiredBadge = document.getElementById("phoneRequiredBadge");
+        const emailRequiredBadge = document.getElementById("emailRequiredBadge");
+        const phoneHint = document.getElementById("phoneHint");
+        const emailHint = document.getElementById("emailHint");
+        const registerBtn = document.getElementById("registerBtn");
+
+        authMethodInput.value = method;
+
+        if (method === "phone") {
+          tabPhone.className = "flex-1 rounded-lg py-2.5 text-xs sm:text-sm font-bold transition duration-150 flex items-center justify-center gap-2 bg-white text-rose-600 shadow-sm";
+          tabEmail.className = "flex-1 rounded-lg py-2.5 text-xs sm:text-sm font-bold transition duration-150 flex items-center justify-center gap-2 text-slate-600 hover:text-slate-900";
+          
+          phoneInput.required = true;
+          phoneRequiredBadge.textContent = "*";
+          phoneHint.textContent = "We'll use this for your reservation alerts and account verification.";
+          
+          emailInput.required = false;
+          emailRequiredBadge.textContent = "(Optional)";
+          emailRequiredBadge.className = "text-slate-400 font-normal";
+          emailHint.textContent = "Optional: Add your email to receive booking receipts.";
+          
+          registerBtn.textContent = "Create Account with Mobile";
+        } else {
+          tabEmail.className = "flex-1 rounded-lg py-2.5 text-xs sm:text-sm font-bold transition duration-150 flex items-center justify-center gap-2 bg-white text-rose-600 shadow-sm";
+          tabPhone.className = "flex-1 rounded-lg py-2.5 text-xs sm:text-sm font-bold transition duration-150 flex items-center justify-center gap-2 text-slate-600 hover:text-slate-900";
+          
+          emailInput.required = true;
+          emailRequiredBadge.textContent = "*";
+          emailRequiredBadge.className = "text-rose-600";
+          emailHint.textContent = "Used for booking receipts and trip itineraries.";
+          
+          phoneInput.required = false;
+          phoneRequiredBadge.textContent = "(Optional)";
+          phoneRequiredBadge.className = "text-slate-400 font-normal";
+          phoneHint.textContent = "Optional: Add your mobile number for SMS stay updates.";
+          
+          registerBtn.textContent = "Create Account with Email";
+        }
+      }
+
+      // Initialize on page load
+      document.addEventListener("DOMContentLoaded", function() {
+        const currentMethod = document.getElementById("authMethodInput").value || "phone";
+        switchAuthMethod(currentMethod);
+      });
+    </script>
   </body>
 </html>

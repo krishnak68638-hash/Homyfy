@@ -1,26 +1,21 @@
+require("dotenv").config();
+
 //Core Modules.
 const path = require("path");
 const crypto = require("crypto");
 
 //External Modules
-require("dotenv").config();
 const express = require("express");
 const session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session);
 const { default: mongoose } = require("mongoose");
 const multer = require("multer");
 
-// Configuration
-const DB_PATH = process.env.MONGODB_URI;
-const SESSION_SECRET = process.env.SESSION_SECRET;
-
-if (!DB_PATH) {
-  throw new Error("MONGODB_URI must be set in the environment.");
-}
-
-if (!SESSION_SECRET) {
-  throw new Error("SESSION_SECRET must be set in the environment.");
-}
+//const
+const DB_PATH =
+  process.env.MONGODB_URI ||
+  process.env.DB_PATH ||
+  "mongodb://ketanvats281_db_user:KetanVats@ac-neb9sjs-shard-00-00.s9vlkt5.mongodb.net:27017,ac-neb9sjs-shard-00-01.s9vlkt5.mongodb.net:27017,ac-neb9sjs-shard-00-02.s9vlkt5.mongodb.net:27017/homyfyy?ssl=true&replicaSet=atlas-qbq85q-shard-0&authSource=admin&appName=Cluster0";
 
 //Local Modules.
 const storeRouter = require("./routes/storeRouter");
@@ -39,6 +34,10 @@ app.set("views", "views");
 const store = new MongoDBStore({
   uri: DB_PATH,
   collection: "sessions",
+});
+
+store.on("error", (error) => {
+  console.error("Session store error:", error);
 });
 
 //Upload file store
@@ -86,7 +85,7 @@ const multerOptions = {
 };
 
 //Parsing the incoming request body.
-app.use(express.urlencoded());
+app.use(express.urlencoded({ extended: true }));
 app.use(
   multer(multerOptions).fields([
     { name: "photo", maxCount: 1 },
@@ -101,9 +100,9 @@ app.use("/homes/uploads", express.static(path.join(rootDir, "uploads")));
 //use session middleware
 app.use(
   session({
-    secret: SESSION_SECRET,
+    secret: process.env.SESSION_SECRET || "my-secret",
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     store: store,
   }),
 );
@@ -118,11 +117,13 @@ app.use(authRouter);
 app.use(storeRouter);
 
 app.use("/host", (req, res, next) => {
-  if (req.isLoggedIn) {
-    next();
-  } else {
-    res.redirect("/login");
+  if (!req.isLoggedIn) {
+    return res.redirect("/login");
   }
+  if (req.session.user?.userType !== "host") {
+    return res.status(403).send("Host access required");
+  }
+  next();
 });
 app.use("/host", hostRouter);
 
@@ -130,7 +131,7 @@ app.use("/host", hostRouter);
 app.use(errorRouter);
 
 //Start the server
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 mongoose
   .connect(DB_PATH)

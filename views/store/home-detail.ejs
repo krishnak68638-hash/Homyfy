@@ -37,7 +37,14 @@
             </div>
           <% } %>
 
-          <div class="detail-actions">
+          <div class="detail-actions mt-5 flex flex-wrap items-center gap-3">
+            <a
+              href="/homes/<%= home._id %>/reserve"
+              class="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-rose-600 to-red-600 px-6 py-3 text-sm font-bold text-white shadow-md shadow-rose-500/25 transition duration-200 hover:-translate-y-0.5 hover:from-rose-700 hover:to-red-700 hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-rose-200"
+            >
+              <span>Book / Reserve Stay</span>
+              <span aria-hidden="true">→</span>
+            </a>
             <%- include('../partials/favourite', {home: home}) %>
           </div>
 

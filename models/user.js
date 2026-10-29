@@ -4,26 +4,36 @@ const mongoose = require('mongoose');
 const userSchema = new mongoose.Schema({
   firstName: {
     type: String,
-    required: [true, 'First name is required']
+    required: [true, 'First name is required'],
+    trim: true,
   },
-  lastName: String,
+  lastName: {
+    type: String,
+    trim: true,
+  },
   email: {
     type: String,
-    required: [true, 'email is required'],
-    unique: true
+    sparse: true,
+    trim: true,
+    lowercase: true,
+  },
+  phone: {
+    type: String,
+    sparse: true,
+    trim: true,
   },
   password: {
     type: String,
-    required: [true, 'Password is required']
+    required: [true, 'Password is required'],
   },
   userType: {
     type: String,
     enum: ['guest', 'host'],
-    default: 'guest'
+    default: 'guest',
   },
   favourites: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Home'
+    ref: 'Home',
   }]
 });
 

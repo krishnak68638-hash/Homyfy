@@ -54,6 +54,13 @@
       <% } %>
 
       <% if (!isLoggedIn) { %>
+      <li>
+        <a
+          href="/homes"
+          class="nav-link rounded-full px-4 py-2 font-medium transition duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-rose-600 <%= currentPage === 'Home' ? 'nav-active' : '' %>"
+          >Stays</a
+        >
+      </li>
       <li class="ml-auto">
         <a
           href="/signup"

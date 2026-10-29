@@ -29,7 +29,8 @@
                 <a class="booking-link" href="/homes/<%= home._id %>">View home <span aria-hidden="true">→</span></a>
               </div>
               <div class="home-card-footer">
-                <a class="card-secondary-action" href="/homes/<%= home._id %>">View details</a>
+                <a class="card-secondary-action" href="/homes/<%= home._id %>">Details</a>
+                <a class="card-secondary-action font-semibold text-rose-600 hover:text-rose-700" href="/homes/<%= home._id %>/reserve">Book</a>
                 <%- include('../partials/favourite', {home: home}) %>
               </div>
             </article>
