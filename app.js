@@ -15,7 +15,7 @@ const multer = require("multer");
 const DB_PATH =
   process.env.MONGODB_URI ||
   process.env.DB_PATH ||
-  "mongodb://ketanvats281_db_user:KetanVats@ac-neb9sjs-shard-00-00.s9vlkt5.mongodb.net:27017,ac-neb9sjs-shard-00-01.s9vlkt5.mongodb.net:27017,ac-neb9sjs-shard-00-02.s9vlkt5.mongodb.net:27017/homyfyy?ssl=true&replicaSet=atlas-qbq85q-shard-0&authSource=admin&appName=Cluster0";
+  "mongodb://neyfyy?ssl=true&replicaSet=atlas-qbq85q-shard-0&authSource=admin&appName=Cluster0";
 
 //Local Modules.
 const storeRouter = require("./routes/storeRouter");
